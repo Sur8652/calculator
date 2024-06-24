@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .calculator {
+            background-color:wheat;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 300px;
+        }
+        .display {
+            margin-bottom: 20px;
+        }
+        #result {
+            width: 100%;
+            font-size: 2em;
+            padding: 10px;
+            border: none;
+            background-color: #f4f4f4;
+            text-align: right;
+            border-radius: 5px;
+            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .btn {
+            padding: 20px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 5px;
+            background-color: #f4f4f4;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .btn:active {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <input type="text" id="result" disabled>
+        </div>
+        <div class="buttons">
+            <button class="btn" onclick="clearScreen()">C</button>
+            <button class="btn" onclick="deleteLast()">DEL</button>
+            <button class="btn" onclick="appendOperator('%')">%</button>
+            <button class="btn" onclick="appendOperator('/')">/</button>
+            <button class="btn" onclick="appendNumber('7')">7</button>
+            <button class="btn" onclick="appendNumber('8')">8</button>
+            <button class="btn" onclick="appendNumber('9')">9</button>
+            <button class="btn" onclick="appendOperator('*')">*</button>
+            <button class="btn" onclick="appendNumber('4')">4</button>
+            <button class="btn" onclick="appendNumber('5')">5</button>
+            <button class="btn" onclick="appendNumber('6')">6</button>
+            <button class="btn" onclick="appendOperator('-')">-</button>
+            <button class="btn" onclick="appendNumber('1')">1</button>
+            <button class="btn" onclick="appendNumber('2')">2</button>
+            <button class="btn" onclick="appendNumber('3')">3</button>
+            <button class="btn" onclick="appendOperator('+')">+</button>
+            <button class="btn" onclick="appendNumber('0')">0</button>
+            <button class="btn" onclick="appendDot()">.</button>
+            <button class="btn" onclick="calculate()">=</button>
+        </div>
+    </div>
+    <script>
+        function clearScreen() {
+            document.getElementById("result").value = "";
+        }
+
+        function deleteLast() {
+            let result = document.getElementById("result").value;
+            document.getElementById("result").value = result.substring(0, result.length - 1);
+        }
+
+        function appendNumber(number) {
+            document.getElementById("result").value += number;
+        }
+
+        function appendOperator(operator) {
+            let result = document.getElementById("result").value;
+            if (result.length > 0 && !isNaN(result[result.length - 1])) {
+                document.getElementById("result").value += operator;
+            }
+        }
+
+        function appendDot() {
+            let result = document.getElementById("result").value;
+            if (result.length > 0 && !result.includes('.')) {
+                document.getElementById("result").value += '.';
+            }
+        }
+
+        function calculate() {
+            let result = document.getElementById("result").value;
+            if (result.length > 0) {
+                try {
+                    document.getElementById("result").value = eval(result);
+                } catch (e) {
+                    document.getElementById("result").value = "Error";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
